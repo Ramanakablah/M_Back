@@ -1,0 +1,30 @@
+module.exports.Successfull=(res,mssg,data=null)=>{
+  res.status(200).json({
+    success:"Success",
+    error:null,
+    data:data
+  })
+}
+module.exports.InternalServer=(res,mssg,data=null)=>{
+  res.status(500).json({
+    success:"Failed",
+    error:mssg,
+    data:data
+  })
+}
+module.exports.Failed=(res,mssg,data=null)=>{
+  res.status(400).json({
+    success:"Bad Request",
+    error:mssg,
+    data:data
+  })
+}
+
+module.exports.CustomError=(res,status,progress,mssg,errmessage,data)=>{
+ res.status(status).json({
+  success:progress,
+  message:mssg,
+  error:errmessage,
+  data:data
+  })
+}
