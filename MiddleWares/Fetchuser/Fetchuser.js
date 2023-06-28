@@ -1,4 +1,5 @@
 const { Verifyit } = require("../../Helpers/ApplicationHelpers/JWT")
+const Responsehandle = require("../../Helpers/Response/ResponseHandler")
 
 module.exports.Fetchuser= async(req,res,next)=>{
 
@@ -7,11 +8,8 @@ module.exports.Fetchuser= async(req,res,next)=>{
         req.user = Verifyit(Token,res)
     }
     else{
-        res.status(401).json({
-            status:"Failed",
-            mssg:null,
-            errmssg:"No Authorization is provided"
-        })
+       Responsehandle.CustomError(res,401,"Failed","No Authorization Provided",null,null)
+       return ;
     }
 
     next()

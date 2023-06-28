@@ -12,6 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 app.use("/user/v1", require("./Routes/UserRouters"))
+app.use("/time/v1", require("./Routes/TimeRouters"))
 
 app.listen(Port,()=>{
     console.log("Listening at ",Port)

@@ -2,20 +2,21 @@ module.exports.Successfull=(res,mssg,data=null)=>{
   res.status(200).json({
     success:"Success",
     error:null,
+    message:mssg,
     data:data
   })
 }
 module.exports.InternalServer=(res,mssg,data=null)=>{
   res.status(500).json({
     success:"Failed",
-    error:mssg,
+    message:mssg,
     data:data
   })
 }
 module.exports.Failed=(res,mssg,data=null)=>{
   res.status(400).json({
     success:"Bad Request",
-    error:mssg,
+    message:mssg,
     data:data
   })
 }

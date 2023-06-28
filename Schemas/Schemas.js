@@ -2,18 +2,18 @@ const { default: mongoose } = require("mongoose")
 
 const TimeTraySchema = new mongoose.Schema({
     StartTime: {
-        type: Date,
+        type: String,
         require: true
     },
     EndTime: {
-        type: Date,
+        type: String,
         require: true
     }
 })
 
 const ZenLearning = new mongoose.Schema({
     Time: {
-        type: Date,
+        type: String,
         require: true
     },
     Lesson:{
@@ -64,7 +64,7 @@ module.exports.Zen_Schema = {
         ref: "User"
     },
     Date: {
-        type: Date,
+        type: String,
         require: true
     },
     Learning: {
