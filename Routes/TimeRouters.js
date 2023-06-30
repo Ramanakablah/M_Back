@@ -17,7 +17,8 @@ router.get("/time", Fetchuser, async (req, res) => {
 
 router.post("/generate-slot", Fetchuser, async (req, res) => {
     const id = req.user.id;
-    console.log(req.body)
+    // console.log(req.body)
+    req.body.Date = await DateValidator(req.body?.Date)
     const Slot_Avail = await SearchBy(MarathonModel, { U_id: id, Date: req.body.Date},{_id:0})
     console.log(Slot_Avail)
     if (Slot_Avail) {
@@ -62,10 +63,12 @@ router.post("/zen-time", Fetchuser, async (req, res) => {
     }
 })
 
-router.get("/zenlist",Fetchuser,async(req,res)=>{
+router.get("/zenlist/:day",Fetchuser,async(req,res)=>{
     const id = req.user.id
+    const date = await DateValidator(req.params?.day)
+    console.log(date)
     try {
-        const Report = await SearchBy(ZenModel,{U_id:id},{_id:0})
+        const Report = await SearchBy(ZenModel,{U_id:id,Date:date},{_id:0})
         if(Report){
             ResponseHandle.Successfull(res,"Your Learnings of the day",Report)
         }
