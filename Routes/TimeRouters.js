@@ -10,9 +10,13 @@ const { DateValidator } = require("../Helpers/ApplicationHelpers/Validators/User
 
 router.get("/time", Fetchuser, async (req, res) => {
     const id = req.user.id
-    const Time_Slot = await SearchBy(MarathonModel, { U_id: id },{_id:0})
-    console.log(Time_Slot)
-    res.send(Time_Slot)
+    try {
+        const Time_Slot = await SearchBy(MarathonModel, { U_id: id },{_id:0})
+        ResponseHandle.Successfull(res,"Your Time Lists",Time_Slot)
+    } catch (error) {
+        
+    }
+    
 })
 
 router.post("/generate-slot", Fetchuser, async (req, res) => {
