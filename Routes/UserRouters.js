@@ -10,17 +10,13 @@ const { Hasher, Comparer } = require("../Helpers/ApplicationHelpers/Bcrypt")
 const { Validate } = require("../Helpers/ApplicationHelpers/Validators/Validation")
 const { SearchBy,SearchOneBy } = require("../Helpers/DBHelpers/Search")
 const { Signit } = require("../Helpers/ApplicationHelpers/JWT")
-const { Fetchuser } = require("../MiddleWares/Fetchuser/Fetchuser")
-const { SendMail } = require("../Helpers/MailBird/Nodemailer")
 
 
 router.post("/signup", Validate, async (req, res) => {
     const User = req.body
-    console.log(User)
     const Checkit = await SearchBy(UserModel, { Email: User.Email })
     if (Checkit) {
         ResponseHandle.Failed(res,"User alreasy exist")
-        return
     }
     else {
         User.Password = await Hasher(User.Password)
@@ -48,19 +44,16 @@ router.post("/login", Validate, async (req, res) => {
 
 router.post("/auth", async (req, res) => {
 try {
-    // await SendMail("someone@gmail.com","alexesramon0909@gmail.com","Hello","Hey there how are you ?")
-// +919027394386
 const mobile = req.body.Mobile
 client.verify.v2
   .services(verifySid)
   .verifications.create({ to: `+91${mobile}`, channel: "sms" })
-  .then((verification) => console.log(verification.status))
+  .then(()=>{
+    ResponseHandle.Successfull(res,"OTP Sent")
+  })
 } catch (error) {
-    console.log(error)
+    ResponseHandle.InternalServer(res,"Server Facing issues")
 }
-
-    // console.log(c.getDate()+"-"+c.getMonth(2)+"-"+c.getFullYear())
-    res.json({"mssg":"Token sent"})
 })
 
 router.post("/verify",(req,res)=>{

@@ -25,16 +25,11 @@ router.get("/time", Fetchuser, async (req, res) => {
 })
 
 router.post("/generate-slot", Fetchuser, async (req, res) => {
-    const id = req.user.id;
-    // console.log(req.body)
     req.body.Date = await DateValidator(req.body?.Date)
-    console.log("Body is ",req.body)
     const Slot_Avail = await SearchBy(MarathonModel, { U_id: id, Date: req.body.Date},{_id:0})
-    console.log(Slot_Avail)
     if (Slot_Avail) {
         try {
             let Report = await UpdateArray(MarathonModel, { U_id: id, Date: req.body.Date }, { $push: { "TimeArray": req.body.TimeArray } })
-            console.log(Report)
             ResponseHandle.Successfull(res, "Successfully Added")
         } catch (error) {
             ResponseHandle.Failed(res, error)
@@ -44,7 +39,6 @@ router.post("/generate-slot", Fetchuser, async (req, res) => {
 
         try {
             let NewSlot = await InstertInDb(MarathonModel, { U_id: id, ...req.body })
-            console.log(NewSlot)
             ResponseHandle.Successfull(res, "Successfully Created")
         } catch (error) {
             ResponseHandle.Failed(res, error)
@@ -56,16 +50,13 @@ router.post("/zen-time", Fetchuser, async (req, res) => {
     const id = req.user.id;
     req.body.Date = await DateValidator(req.body?.Date)
     const Slot_Avail = await SearchBy(ZenModel, { U_id: id, Date: req.body.Date },{_id:0})
-    console.log(req.body)
     try {
         if (!Slot_Avail) {
             const Report = await InstertInDb(ZenModel, { U_id: id, ...req.body })
-            console.log(Report)
             ResponseHandle.Successfull(res, "Slot Created Successgully")
         }
         else {
             const Report = await UpdateArray(ZenModel, { U_id: id, Date: req.body.Date }, { $push: { "Learning": req.body.Learning[0] } })
-            console.log(Report)
             ResponseHandle.Successfull(res, "Successfully Added")
         }
     } catch (error) {
@@ -76,7 +67,6 @@ router.post("/zen-time", Fetchuser, async (req, res) => {
 router.get("/zenlist/:day",Fetchuser,async(req,res)=>{
     const id = req.user.id
     const date = await DateValidator(req.params?.day)
-    console.log(date)
     try {
         const Report = await SearchBy(ZenModel,{U_id:id,Date:date},{_id:0})
         if(Report){
