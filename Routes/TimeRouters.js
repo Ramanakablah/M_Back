@@ -12,9 +12,14 @@ router.get("/time", Fetchuser, async (req, res) => {
     const id = req.user.id
     try {
         const Time_Slot = await SearchBy(MarathonModel, { U_id: id },{_id:0})
-        ResponseHandle.Successfull(res,"Your Time Lists",Time_Slot)
+        if(Time_Slot){
+            ResponseHandle.Successfull(res,"Your Time Lists",Time_Slot)
+        }
+        else{
+            ResponseHandle.Successfull(res,"Your Time Lists",[])
+        }
     } catch (error) {
-        
+        ResponseHandle.InternalServer(res,"Server Facing Issues")
     }
     
 })
