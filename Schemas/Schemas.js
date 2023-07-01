@@ -8,6 +8,10 @@ const TimeTraySchema = new mongoose.Schema({
     EndTime: {
         type: String,
         require: true
+    },
+    TotalTime:{
+        type:String,
+        require:true
     }
 })
 

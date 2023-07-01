@@ -19,6 +19,7 @@ router.post("/generate-slot", Fetchuser, async (req, res) => {
     const id = req.user.id;
     // console.log(req.body)
     req.body.Date = await DateValidator(req.body?.Date)
+    console.log("Body is ",req.body)
     const Slot_Avail = await SearchBy(MarathonModel, { U_id: id, Date: req.body.Date},{_id:0})
     console.log(Slot_Avail)
     if (Slot_Avail) {

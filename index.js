@@ -11,6 +11,9 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
+app.get("/",(req,res)=>{
+res.send("Hello world")
+})
 app.use("/v1/user", require("./Routes/UserRouters"))
 app.use("/v1/time", require("./Routes/TimeRouters"))
 
