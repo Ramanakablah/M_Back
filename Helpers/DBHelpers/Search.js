@@ -1,6 +1,7 @@
 
 module.exports.SearchBy= async (Model,Param,select)=>{
     let result = await Model.find(Param).select(select)
+    console.log(result)
      if(result.length){
          return result
      }
@@ -11,6 +12,7 @@ module.exports.SearchBy= async (Model,Param,select)=>{
 
 module.exports.SearchOneBy= async (Model,Param,select)=>{
     let result = await Model.find(Param).select(select)
+    console.log(result)
      if(result.length){
          return result[0]
      }

@@ -32,7 +32,8 @@ router.post("/signup", Validate, async (req, res) => {
 router.post("/login", Validate, async (req, res) => {
     const User_data = req.body
     const ExistUser = await SearchOneBy(UserModel, { Email: User_data.Email })
-    console.log(ExistUser)
+    console.log(req.body)
+    console.log("existance",ExistUser)
     if (ExistUser) {
         await Comparer(User_data.Password, ExistUser.Password, res)
         await Signit({ id: ExistUser._id }, res)
