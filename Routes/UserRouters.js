@@ -20,7 +20,7 @@ router.post("/signup", Validate, async (req, res) => {
     }
     else {
         User.Password = await Hasher(User.Password)
-        if (InstertInDb(UserModel, User)) {
+        if ( await InstertInDb(UserModel, User)) {
             ResponseHandle.Successfull(res, "User Created Successfully")
         }
         else {
